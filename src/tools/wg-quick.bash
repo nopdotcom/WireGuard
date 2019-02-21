@@ -277,10 +277,10 @@ cmd_up() {
 	execute_hooks "${PRE_UP[@]}"
 	add_if
 	set_config
+	set_mtu
 	for i in "${ADDRESSES[@]}"; do
 		add_addr "$i"
 	done
-	set_mtu
 	up_if
 	set_dns
 	for i in $(while read -r _ i; do for i in $i; do [[ $i =~ ^[0-9a-z:.]+/[0-9]+$ ]] && echo "$i"; done; done < <(wg show "$INTERFACE" allowed-ips) | sort -nr -k 2 -t /); do
